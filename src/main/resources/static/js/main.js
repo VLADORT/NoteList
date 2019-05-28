@@ -30,10 +30,11 @@ Vue.component('message-form', {
         }
     },
     template:
-        '<div>' +
-        '<input type="text" style="width:100px" placeholder="Write note" v-model="text" />' +
-        '<input type="text"  style="width:60px" placeholder="Write tag" v-model="tag" />' +
-        '<input type="button" value="Save" @click="save" />' +
+        ''+
+        '<div style="display: flex;justify-content: space-between;width: 68%;">' +
+        '<input type="text"  class="form-control"style="width:200px;height: 30px;" placeholder="Write note" v-model="text" />' +
+        '<input   class="ml-5 form-control"type="text"  style="width:200px;height: 30px" placeholder="Write tag" v-model="tag" />' +
+        '<input  class="ml-3 btn btn-success" style="height: 2rem;" type="button" value="Save" @click="save" />' +
         '</div>',
     methods: {
         save: function() {
@@ -67,13 +68,16 @@ Vue.component('message-form', {
 
 Vue.component('message-row', {
     props: ['message','tag', 'editMethod', 'messages'],
-    template: '<div>' +
-        '<i>{{ message.id }}<span>&nbsp&nbsp</span></i> {{ message.text }}<b><span>&nbsp&nbsp</span>{{ message.tag }}</b> ' +
-        '<span style="position: absolute; right: 0;">' +
-        '<input type="button" value="Edit" @click="edit" />' +
-        '<input type="button" value="X" @click="del" />' +
-        '<a v-bind:href="`/message/`+message.id">localhost:8080/message/{{message.id}}</a>'+
+    template:
+        '<div>'+
+        '<div class=" mt-4 text-dark card"style="width: 34rem;height: 7.9rem;align-items: center;background-color: #F5F5DC;">' +
+        '<i><span>&nbsp&nbsp</span></i> {{ message.text }}<b><span>&nbsp&nbsp</span>{{ message.tag }}</b> ' +
+        '<span style="display: grid;position: absolute; right: 0;">' +
+        '<input type="button" class="btn   btn-warning" style="margin-left: 76%;%;height: 2rem;width: 3rem;" value="Edit" @click="edit" />' +
+        '<input class=" btn btn-danger" type="button" style="margin-top: 0.8rem;margin-left: 76%;height: 2rem;width: 3rem;" value="X" @click="del" />' +
+        '<div><b>Share link:</b> <a class= "mt-3 btn btn-info" style="height: 1.8rem;"  v-bind:href="`/message/`+message.id">localhost:8080/message/{{message.id}}</a></div>'+
         '</span>' +
+        '</div>'+
 
         '</div>',
     methods: {
@@ -99,7 +103,8 @@ Vue.component('messages-list', {
         }
     },
     template:
-        '<div style="position: relative; width: 500px;">' +
+
+        '<div style="position: relative; width: 800px;">' +
         '<message-form :messages="messages" :messageAttr="message"  />' +
         '<message-row v-for="message in messages" :key="message.id" :message="message"  :tag="tag"' +
         ':editMethod="editMethod" :messages="messages" />' +
@@ -117,10 +122,13 @@ var app = new Vue({
     el: '#app',
     template:
         '<div>' +
-        '<div v-if="!profile">Log in via <a href="/login">Google</a></div>' +
-        '<div v-else>' +
-        '<div>{{profile.name}}&nbsp;<a href="/logout">Log out </a></div>' +
-        '<messages-list :messages="messages" />' +
+        '<div v-if="!profile"><h5>Hello, guest!<br /><br /><br />Log in via <a  class="btn btn-primary" href="/login">Google</a></h5> </div>' +
+        '<div v-else >' +
+        '<div class="row"><div class="alert alert-primary col-md-3 col-md-offset-2" role="alert">{{profile.name}}&nbsp;</div></div>' +
+        '<a class="btn btn-danger" href="/logout">Log out </a>' +
+        '<div>“Yesterday is gone. Tomorrow has not yet come. We have only today. Let us begin.”<br />' +
+        '― Mother Theresa</div><br />'+
+        '<messages-list :messages="messages" /><br />' +
         '</div>' +
         '</div>',
     data: {
