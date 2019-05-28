@@ -45,7 +45,7 @@ public class Message {
     private String userId;
     @Column(updatable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonView(Views.FullMessage.class)
+    @JsonView(Views.IdName.class)
     private LocalDateTime creationDate;
 
     public Long getId() {
